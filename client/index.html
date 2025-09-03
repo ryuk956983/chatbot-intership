@@ -5,26 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
+  
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2025/09/03/08/20250903080147-FYR75WUT.js" defer></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="p-4 m-0 bg-[#161616] text-white h-full w-full">
-    <nav class=" h-14 flex ">
+    <nav class=" h-14 flex items-center">
         <div class="h-full flex-1">
             <img class="h-full"
                 src="data:image/png;base64,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"
                 alt="">
         </div>
         <div class="flex-1 h-full flex items-center">
-            <ul class="flex w-full justify-around text-xl">
+            <ul class="flex w-full max-md:hidden  justify-around text-xl">
                 <li>Home</li>
                 <li>Contact</li>
                 <li>Internships</li>
                 <li>History</li>
                 <li>Profile</li>
             </ul>
+
+            
         </div>
+        <div class="h-full hidden max-md:flex flex items-center">
+                <img class="h-7 " src="https://cdn-icons-png.flaticon.com/128/7711/7711100.png" alt="">
+            </div>
     </nav>
+
+    <div class="h-svh font-semibold w-full text-3xl flex justify-center items-center">
+       <div>
+        <h1 class="text-center">Find Internships with AI </h1>
+        <h1 class="text-center">Click on message icon to get started</h1>
+       </div> 
+    </div>
 </body>
 
 </html>
