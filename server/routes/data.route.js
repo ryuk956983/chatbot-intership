@@ -2,8 +2,8 @@ const app  = require("express");
 const router = app.Router();
 const dataCTRL = require("../controller/data.controller");
 
-router.post("/getinternships",dataCTRL.sendinternships);
+router.get("/getinternships",dataCTRL.sendinternships);
 
-
+router.post("/getbylocation",dataCTRL.sendbylocation);
 
 module.exports=router;
