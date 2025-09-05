@@ -3,7 +3,7 @@ const app = express()
 const dataRouter = require("./routes/data.route")
 const cors = require("cors");
 const dbconnect=require("./db/connect");
-
+require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
