@@ -14,9 +14,10 @@ const data = {
     sendbylocation: async (req, res) => {
         const { location } = req.body;
         const internships = await dataModel.find({ location });
-    
-            res.status(200).json(internships);
-      
+        console.log(internships)
+
+        res.status(200).json(internships);
+
 
     },
     getrecommendation: async (req, res) => {
@@ -38,11 +39,14 @@ const data = {
                 location
             }
 
+console.log(userdata)
+
             const fetchFunction = async () => {
                 try {
                     const details = { location: userdata.location }
-                   
+
                     const res = await axios.post("https://chatbot-intership.onrender.com/data/getbylocation", details);
+                    console.log(res)
                     return res.data;
                 } catch (err) {
                     console.error("Error fetching API data:", err.message);
@@ -54,8 +58,8 @@ const data = {
             (async () => {
                 const internships = await fetchFunction();
 
-                if (internships.length==0) {
-                    res.json({internships})
+                if (internships.length == 0) {
+                    res.json({ internships })
                     return;
                 };
 
@@ -72,7 +76,7 @@ Match based on the following priority:
 1. Location (most important)
 2. Skills (given as an array so check all the elements )
 3. Experience
-4. Other fields like duration, type, etc.
+
 
 Return the **top 5 matching internships**, and return result as an array.
 
@@ -95,10 +99,14 @@ ${JSON.stringify(userdata)}
                 const result = await structuredLlm.invoke(prompt);
 
 
-
+                console.log(result)
                 const docs = await dataModel.find({
-                    id: { $in: result }
+                 
+                        id: { $in: result}
+                    
                 });
+
+                console.log(docs.length)
 
                 res.status(200).json({ internships: docs })
 
