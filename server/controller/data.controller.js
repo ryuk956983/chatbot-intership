@@ -67,9 +67,10 @@ You will be given:
 - A user profile (also in JSON)
 
 Your task is to analyze the user's profile and match it to the internships.
+you have to give only 5 interships that matches perfectly to users data 
 Match based on the following priority:
 1. Location (most important)
-2. Skills
+2. Skills (given as an array so check all the elements )
 3. Experience
 4. Other fields like duration, type, etc.
 
