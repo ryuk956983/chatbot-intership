@@ -14,7 +14,10 @@ const data = {
     sendbylocation: async (req, res) => {
         const { location } = req.body;
         const internships = await dataModel.find({ location });
-        res.status(200).json(internships);
+    
+            res.status(200).json(internships);
+      
+
     },
     getrecommendation: async (req, res) => {
 
@@ -22,7 +25,7 @@ const data = {
 
 
             const { skills, experience, location } = req.body;
-            
+
 
             const model = new ChatGoogleGenerativeAI({
                 model: "gemini-2.0-flash",
@@ -38,6 +41,7 @@ const data = {
             const fetchFunction = async () => {
                 try {
                     const details = { location: userdata.location }
+                   
                     const res = await axios.post("https://chatbot-intership.onrender.com/data/getbylocation", details);
                     return res.data;
                 } catch (err) {
@@ -50,7 +54,10 @@ const data = {
             (async () => {
                 const internships = await fetchFunction();
 
-                if (!internships.length) return;
+                if (internships.length==0) {
+                    res.json({internships})
+                    return;
+                };
 
                 const prompt = `
 You are a helpful AI assistant.
@@ -98,11 +105,11 @@ ${JSON.stringify(userdata)}
 
             })();
 
-        }catch(err){
+        } catch (err) {
             console.log(err)
-            res.status(500).json({err})
+            res.status(500).json({ err })
         }
-}
+    }
 }
 
 module.exports = data;
