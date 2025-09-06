@@ -39,14 +39,13 @@ const data = {
                 location
             }
 
-console.log(userdata)
+
 
             const fetchFunction = async () => {
                 try {
                     const details = { location: userdata.location }
 
                     const res = await axios.post("https://chatbot-intership.onrender.com/data/getbylocation", details);
-                    console.log(res)
                     return res.data;
                 } catch (err) {
                     console.error("Error fetching API data:", err.message);
@@ -99,14 +98,15 @@ ${JSON.stringify(userdata)}
                 const result = await structuredLlm.invoke(prompt);
 
 
-                console.log(result)
-                const docs = await dataModel.find({
-                 
-                        id: { $in: result}
-                    
-                });
+                const docs = await dataModel.aggregate([
+                    {
+                        $match: {
+                            id: { $in: result }
+                        }
+                    }
+                ]);
 
-                console.log(docs.length)
+            
 
                 res.status(200).json({ internships: docs })
 
