@@ -6,7 +6,10 @@ const dbconnect=require("./db/connect");
 require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors({
+    origin:"https://internai-ns86.onrender.com",
+    credentials:true
+}))
 dbconnect();
 
 app.use("/data",dataRouter);
