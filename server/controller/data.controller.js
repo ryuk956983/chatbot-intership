@@ -48,7 +48,7 @@ const data = {
                 try {
                     const details = { location: userdata.location }
 
-                    const res = await axios.post("http://localhost:5000/data/getbylocation", details);
+                    const res = await axios.post("https://aiintern-server.onrender.com/data/getbylocation", details);
                     return res.data;
                 } catch (err) {
                     console.error("Error fetching API data:", err.message);
