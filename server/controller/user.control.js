@@ -75,7 +75,7 @@ const userCTRL = {
                     maxAge: 1000 * 60 * 60 * 24 * 365 * 20,
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'Strict'
+                    sameSite: 'None'
                 });
                 res.status(200).json({ message: "Login successful", path: true });
             } else {
