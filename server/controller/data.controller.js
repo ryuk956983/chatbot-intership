@@ -15,7 +15,7 @@ const data = {
     sendbylocation: async (req, res) => {
         const { location } = req.body;
         const internships = await dataModel.find({ location });
-        console.log(internships)
+
 
         res.status(200).json(internships);
 
@@ -26,7 +26,7 @@ const data = {
         try {
 
 
-            const { skills, experience, location } = req.body;
+            const { sector, education, skills, experience, location } = req.body;
 
 
             const model = new ChatGoogleGenerativeAI({
@@ -35,9 +35,11 @@ const data = {
             });
 
             const userdata = {
+                sector,
                 skills,
                 experience,
-                location
+                location,
+                education,
             }
 
 
@@ -46,7 +48,7 @@ const data = {
                 try {
                     const details = { location: userdata.location }
 
-                    const res = await axios.post("https://aiintern-server.onrender.com/data/getbylocation", details);
+                    const res = await axios.post("http://localhost:5000/data/getbylocation", details);
                     return res.data;
                 } catch (err) {
                     console.error("Error fetching API data:", err.message);
@@ -62,7 +64,6 @@ const data = {
                     res.json({ internships })
                     return;
                 };
-
                 const prompt = `
 You are a helpful AI assistant.
 
@@ -71,14 +72,15 @@ You will be given:
 - A user profile (also in JSON)
 
 Your task is to analyze the user's profile and match it to the internships.
-you have to give only 5 interships that matches perfectly to users data 
+you have to give only 6 interships that matches perfectly to users data 
 Match based on the following priority:
 1. Location (most important)
 2. Skills (given as an array so check all the elements )
 3. Experience
+4: sector
+5: minimum education
 
-
-Return the **top 5 matching internships**, and return result as an array.
+Return the **top 6 matching internships**, and return result as an array.
 
 ---
 
@@ -107,7 +109,9 @@ ${JSON.stringify(userdata)}
                     }
                 ]);
 
-            
+
+
+
 
                 res.status(200).json({ internships: docs })
 
@@ -117,6 +121,53 @@ ${JSON.stringify(userdata)}
 
         } catch (err) {
             console.log(err)
+            res.status(500).json({ err })
+        }
+    },
+    getrecent: async (req, res) => {
+        try {
+
+            const internships = await dataModel.aggregate([
+                {
+                    $sort: { start_date: 1 }
+                },
+                {
+                    $limit: 6
+                }
+            ])
+            res.status(200).json(internships);
+        } catch (err) {
+
+            res.status(500).json({ err })
+        }
+    },
+    getall: async (req, res) => {
+        try {
+            const { page, location, sector, education } = req.body;
+            const query = {};
+            if (location) {
+                query.location = location;
+            }
+            if (sector) {
+                query.sector = sector;
+            }
+            if (education) {
+                query.minimum_education = education;
+            }
+            const limit = 10;
+            let internshipscount=0;
+            const skip = (page - 1) * limit;
+            const internships = await dataModel.find({}).skip(skip).limit(limit).find(query);
+        
+            if (location || sector || education) {
+                               internshipscount = await dataModel.countDocuments(query);
+            }else{
+                internshipscount = await dataModel.countDocuments();
+
+            }
+
+            res.status(200).json({internships, internshipscount});
+        } catch (err) {
             res.status(500).json({ err })
         }
     }
