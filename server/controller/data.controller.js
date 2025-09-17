@@ -170,6 +170,9 @@ ${JSON.stringify(userdata)}
         } catch (err) {
             res.status(500).json({ err })
         }
+    },
+    keepalive: async (req, res) => {
+        res.status(200).json({ message: "Server is alive" })
     }
 }
 
