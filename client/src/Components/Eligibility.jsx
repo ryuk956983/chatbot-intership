@@ -39,7 +39,7 @@ const EligibilityCard = () => {
               <div className="flex items-center justify-center w-16 h-16 bg-green-300 rounded-full mb-4">
                 <span className="text-3xl font-semibold text-green-500">👨‍👩‍👦</span>
               </div>
-              <h3 className="text-xl font-medium text-gray-700">Family (Self/Spouse/Parents)</h3>
+              <h3 className="text-xl font-medium text-center text-gray-700">Family (Self/Spouse/Parents)</h3>
               <p className="text-lg text-gray-500 text-center">
                 No one is Earning more than ₹8 Lakhs PA
               </p>
