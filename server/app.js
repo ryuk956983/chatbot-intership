@@ -9,7 +9,7 @@ require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: 'https://maverick-internai.onrender.com',  
+  origin: 'https://chatbot-intership.vercel.app',  
   credentials: true,                
 }));
 dbconnect();
