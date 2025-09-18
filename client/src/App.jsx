@@ -18,7 +18,7 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
  
 
-  const islogin = useStore((state) => state.islogin);
+  const setislogin = useStore((state) => state.setislogin);
   const API_URL = import.meta.env.VITE_SERVER_URL
   const setuserInStore = useStore((state) => state.setUser);
 
@@ -26,9 +26,9 @@ function App() {
     await axios.get(`${API_URL}/user/getuser`, { withCredentials: true }).then((res) => {
       if (res.data.user) {
         setuserInStore(res.data.user);
-        islogin(true);
+        setislogin(true);
       } else {
-        islogin(false);
+        setislogin(false);
       }
     }).catch((err) => {
       console.log(err);

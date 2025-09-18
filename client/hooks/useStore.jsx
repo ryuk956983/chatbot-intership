@@ -6,7 +6,7 @@ const useStore = create((set) => ({
   internships:[],
   
   setInternships: (internships) => set({ internships }),
-  islogin: (islogin) => set({ islogin }),
+  setislogin: (islogin) => set({ islogin }),
   setUser: (user) => set({ user }),
 
  

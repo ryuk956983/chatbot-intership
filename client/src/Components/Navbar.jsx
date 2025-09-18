@@ -10,7 +10,7 @@ import { IoHome } from "react-icons/io5";
 const MainNavbar = () => {
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
-  const islogin = useStore((state) => state.islogin);
+  const setislogin = useStore((state) => state.setislogin);
   const API_URL = import.meta.env.VITE_SERVER_URL;
   const [loading, setLoading] = useState(false);
   const [hamburger, setHamburger] = useState(false);
@@ -34,7 +34,7 @@ const MainNavbar = () => {
 
         alert(res.data.message);
         setUser(null);
-        islogin(false);
+        setislogin(false);
         setLoading(false);
       }).catch((err) => {
         console.log(err);
