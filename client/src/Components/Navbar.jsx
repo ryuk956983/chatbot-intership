@@ -55,13 +55,12 @@ const MainNavbar = () => {
             alt="MCA Logo"
           />
           <img
-            className="h-14 hidden md:block object-contain"
+            className="h-10  md:h-14 object-contain"
             src="https://sdjindia.in//job_docs/logo/1731769592pm%20intern.png"
             alt="Dev India Mission"
           />
         </div>
 
-        {/* Center: Navigation Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <NavLink
@@ -80,7 +79,7 @@ const MainNavbar = () => {
           <a className='text-gray-600 items-center flex gap-3  text-lg font-medium hover:text-orange-500 transition-all duration-200' href="#about"><img className="h-6" src="https://img.icons8.com/?size=100&id=utVqz5OlvGCj&format=png&color=fc6800" alt="" />About</a>
         </div>
 
-        {/* Right: User or Login */}
+   
         <div className="flex items-center gap-6">
           {!user ? (
             <Link

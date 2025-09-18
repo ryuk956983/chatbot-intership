@@ -8,6 +8,8 @@ router.post("/sendotp",userCTRL.sendotp);
 router.post("/login",userCTRL.login);
 router.get("/getuser",userCTRL.getuser);
 router.get("/logout",userCTRL.logout);
-router.post("/postprofile",userCTRL.postprofile)
+router.post("/postprofile",userCTRL.postprofile);
+router.post("/forgotpasswordotp",userCTRL.frogotpasswordotp);
+router.post("/changepassword",userCTRL.changepassword);
 
 module.exports=router;

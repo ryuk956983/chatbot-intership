@@ -11,6 +11,7 @@ import axios from "axios";
 import useStore from "../hooks/useStore";
 import { useEffect } from "react";
 import UserProfile from "./UserProfile"
+import ForgotPassword from "./ForgotPass";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -55,6 +56,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/forgot" element={<ForgotPassword/>}/>
       </Routes>
 
       <FooterCTA />

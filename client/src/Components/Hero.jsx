@@ -96,23 +96,28 @@ const HeroSection = () => {
       alert("Please login to get recommendations");
       return;
     } else {
-      const details = {
-        skills: user.skills.map((el) => el.skill),
-        experience: user.experience,
-        location: user.location,
-        education: user.education,
-        sector: user.sector
-      };
+      if (user.location) {
+        const details = {
+          skills: user.skills.map((el) => el.skill),
+          experience: user.experience,
+          location: user.location,
+          education: user.education,
+          sector: user.sector
+        };
 
-      setLoading(true);
-      await axios.post(`${API_URL}/data/getrecommendation`, details)
-        .then((res) => {
-          setInternships(res.data.internships);
-        }).catch((err) => {
-          console.log(err);
-        });
+        setLoading(true);
+        await axios.post(`${API_URL}/data/getrecommendation`, details)
+          .then((res) => {
+            setInternships(res.data.internships);
+          }).catch((err) => {
+            console.log(err);
+          });
 
-      setLoading(false);
+        setLoading(false);
+      } else {
+        alert("Please update your profile  to get recommendations");
+      }
+
 
     }
   }

@@ -126,6 +126,50 @@ const userCTRL = {
     res.json({"message":"Profile saved Succesfully"})
 
     
+    },
+    frogotpasswordotp: async (req, res) => {
+        const { email} = req.body;
+
+            const existinguser = await userModel.findOne({ email });
+            if (existinguser) {
+                
+                const sender = nodemailer.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: "maverickteam67@gmail.com",
+                        pass: "qezmzryqvkzrnhwb"
+                    }
+                })
+
+
+                const info = await sender.sendMail({
+                    from: "maverickteam67@gmail.com",
+                    to: `${email}`,
+                    subject: "OTP Verification",
+                    text: "OTP Verfification",
+                    html: `Hi there, your otp for password reset is <b>${otpgenerated}</b>`
+                })
+
+
+                res.status(200).json({ "message": "OTP sent Succesfully", "panel": true });
+
+            } else {
+                res.json({ "message": "User doesn't exist", "panel": false })
+            }
+            
+            
+    },
+    changepassword: async (req, res) => {
+        const { email, otp, newpassword } = req.body;
+        if (otp == otpgenerated) {
+            const hashedpassword = await bcrypt.hash(newpassword, 10);
+            await userModel.updateOne({ email }, { $set: { password: hashedpassword } });
+            res.status(200).json({ message: "Password reset successful", path: true });
+        } else {
+            res.json({ message: "Invalid OTP" });
+        }
     }
 
 }

@@ -76,9 +76,9 @@ const handlelogin = async () => {
 
           {/* Forgot Password */}
           <div className="text-right text-sm">
-            <a href="/forgot-password" className="text-orange-600 hover:underline">
+            <Link to="/forgot" className="text-orange-600 hover:underline">
               Forgot Password?
-            </a>
+            </Link>
           </div>
 
           {/* Submit Button */}
