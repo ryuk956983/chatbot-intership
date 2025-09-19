@@ -56,13 +56,7 @@ const HeroSection = () => {
   ];
 
 
-  const experience = ["Fresher", "1 Year", "2 Years", "3 Years", "4 Years", "5+ Years"];
-
-
-
-
-
-
+  const experience = ["Fresher", "1 Year", "2 Years+"];
 
   const handlesubmit = async () => {
     if (selectedSkills.length === 0 || selectedLocation === null || selectedEducation === null || selectedSector === null || selectedExperience === null) {
@@ -108,7 +102,7 @@ const HeroSection = () => {
         setLoading(true);
         await axios.post(`${API_URL}/data/getrecommendation`, details)
           .then((res) => {
-            setInternships(res.data.internships);
+                       setInternships(res.data.internships);
           }).catch((err) => {
             console.log(err);
           });

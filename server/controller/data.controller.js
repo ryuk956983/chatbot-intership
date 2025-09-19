@@ -14,7 +14,13 @@ const data = {
     },
     sendbylocation: async (req, res) => {
         const { location } = req.body;
-        const internships = await dataModel.find({ location });
+        let internships;
+        if (location === "Remote") {
+            internships = await dataModel.find({ type: location });
+        } else {
+            internships = await dataModel.find({ location });
+        }
+
 
 
         res.status(200).json(internships);
@@ -72,7 +78,7 @@ You will be given:
 - A user profile (also in JSON)
 
 Your task is to analyze the user's profile and match it to the internships.
-you have to give only 6 interships that matches perfectly to users data 
+you have to give only 5 interships that matches perfectly to users data 
 Match based on the following priority:
 1. Location (most important)
 2. Skills (given as an array so check all the elements )
@@ -80,7 +86,7 @@ Match based on the following priority:
 4: sector
 5: minimum education
 
-Return the **top 6 matching internships**, and return result as an array.
+Return the **most relevant 5 matching internships ids**, and return result as an array.
 
 ---
 
@@ -99,7 +105,7 @@ ${JSON.stringify(userdata)}
                 const structuredLlm = model.withStructuredOutput(z.array(z.number()));
 
                 const result = await structuredLlm.invoke(prompt);
-
+     
 
                 const docs = await dataModel.aggregate([
                     {
@@ -155,18 +161,18 @@ ${JSON.stringify(userdata)}
                 query.minimum_education = education;
             }
             const limit = 10;
-            let internshipscount=0;
+            let internshipscount = 0;
             const skip = (page - 1) * limit;
             const internships = await dataModel.find({}).skip(skip).limit(limit).find(query);
-        
+
             if (location || sector || education) {
-                               internshipscount = await dataModel.countDocuments(query);
-            }else{
+                internshipscount = await dataModel.countDocuments(query);
+            } else {
                 internshipscount = await dataModel.countDocuments();
 
             }
 
-            res.status(200).json({internships, internshipscount});
+            res.status(200).json({ internships, internshipscount });
         } catch (err) {
             res.status(500).json({ err })
         }
@@ -174,6 +180,7 @@ ${JSON.stringify(userdata)}
     keepalive: async (req, res) => {
         res.status(200).json({ message: "Server is alive" })
     }
+
 }
 
 module.exports = data;

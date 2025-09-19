@@ -1,4 +1,5 @@
 [
+  {"id":0,"city":"Remote"},
   { "id": 1, "city": "Agra" },
   { "id": 2, "city": "Ahmedabad" },
   { "id": 3, "city": "Ajmer" },

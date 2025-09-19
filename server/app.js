@@ -12,6 +12,7 @@ app.use(cors({
   origin: 'https://chatbot-intership.vercel.app',  
   credentials: true,                
 }));
+
 dbconnect();
 app.use(cookieParser());
 
