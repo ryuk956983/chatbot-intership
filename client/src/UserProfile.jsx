@@ -28,7 +28,7 @@ const SkillsForm = () => {
         "High School",
         "Master's Degree"
     ];
-    const experiencelist = ["Fresher", "1 Year", "2 Years", "3 Years", "4 Years", "5+ Years"];
+    const experiencelist = ["Fresher", "1 Year", "2+ Years"];
 
     const [skillslist, setskillslist] = useState([]);
     const [sectorlist, setsectorlist] = useState([]);
@@ -69,7 +69,7 @@ const SkillsForm = () => {
 
 
             const details = { skills, experience, education, sector, location }
-            console.log(details)
+          
             await axios.post(API_URL + "/user/postprofile", details, { withCredentials: true })
                 .then(res => {
                     alert(res.data.message);
